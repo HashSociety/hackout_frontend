@@ -16,6 +16,10 @@ module.exports = {
       },
     },
     extend: {
+
+      backgroundImage:{
+        'radial-gradient': "radial-gradient(circle, rgba(255,34,99,0.886787991563813) 0%, rgba(255,66,83,0.9400092800792192) 7%, rgba(255,83,75,0.8279644621520483) 19%, rgba(255,168,32,0) 81%)"
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

@@ -1,7 +1,7 @@
 import "./App.css";
-
+import React from "react";
 function App() {
-  return <>index page</>;
+  return <div className="text-2xl">index page</div>;
 }
 
 export default App;

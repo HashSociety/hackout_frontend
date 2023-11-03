@@ -3,10 +3,10 @@ export const getLoginToken = async (loginFormData) => {
       if (!loginFormData) return;
       const params = new URLSearchParams(loginFormData);
   
-      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/login", {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/login/", {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": " application/json",
         },
         body: params,
       });
@@ -19,14 +19,14 @@ export const getLoginToken = async (loginFormData) => {
     }
   };
 
-  export const getUser = async (token) => {
-    const res = await fetch(import.meta.env.VITE_BACKEND_URL + "/get_userid", {
-      methods: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  // export const getUser = async (token) => {
+  //   const res = await fetch(import.meta.env.VITE_BACKEND_URL + "/get_userid", {
+  //     methods: "GET",
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
   
-    return res.json();
-  };
+  //   return res.json();
+  // };
   

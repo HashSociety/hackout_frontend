@@ -4,24 +4,24 @@ import { getLoginToken } from "../api";
 
 
  const Login = () => {
-//     const loginMutation = useMutation(getLoginToken);
+    const loginMutation = useMutation(getLoginToken);
   
-//     const setTokenToStorage = (token) => {
-//       localStorage.removeItem("token");
-//       localStorage.setItem("token", token); 
-//     };
+    const setTokenToStorage = (token) => {
+      localStorage.removeItem("token");
+      localStorage.setItem("token", token); 
+    };
   
-//     const loginSubmit = async (e) => {
-//       e.preventDefault();
-//       const formData = new FormData(e.target);
+    // const loginSubmit = async (e) => {
+    //   e.preventDefault();
+    //   const formData = new FormData(e.target);
   
-//       loginMutation.mutate(formData, {
-//         onSuccess: (data) => {
-//           setTokenToStorage(data.access_token);
-//           window.location.href = "/";
-//         },
-//       });
-//     };
+    //   loginMutation.mutate(formData, {
+    //     onSuccess: (data) => {
+    //       setTokenToStorage(data.access_token);
+    //       window.location.href = "/";
+    //     },
+    //   });
+    // };
     return (
         <div className="w-full text-white h-full flex justify-center items-center">
           <div className="flex flex-col gap-3">

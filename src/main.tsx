@@ -24,14 +24,23 @@ import "@ionic/react/css/display.css";
 import { Button } from "./components/ui/button";
 import Login from "./Pages/Login";
 import Layout from "./components/ui/layout";
-
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 /* Ionic Theme variables */
 // import "./variables.css";
+
+const queryClient = new QueryClient();
 
 setupIonicReact();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
     <IonApp>
       <IonReactRouter>
         <Layout>
@@ -47,5 +56,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </Layout>
       </IonReactRouter>
     </IonApp>
+    </QueryClientProvider>
   </React.StrictMode>
 );

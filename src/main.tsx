@@ -21,16 +21,14 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
-import { Button } from "./components/ui/button";
 import Login from "./Pages/Login";
-import Layout from "./components/ui/layout";
+import Layout from "./components/layout";
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
-} from '@tanstack/react-query'
+} from "@tanstack/react-query";
+import { UserProvider } from "./hooks/UserProvider";
+import Signup from "./Pages/Signup";
 /* Ionic Theme variables */
 // import "./variables.css";
 
@@ -41,21 +39,21 @@ setupIonicReact();
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-    <IonApp>
-      <IonReactRouter>
-        <Layout>
-          <IonRouterOutlet>
-            <Route path="/home" component={App} />
-            <Route path="/login" component={Login} />
-            <Route
-              path="/new"
-              component={() => <Button> Shad-cn button</Button>}
-            />
-            <Redirect exact from="/" to="/home" />
-          </IonRouterOutlet>
-        </Layout>
-      </IonReactRouter>
-    </IonApp>
+      <UserProvider>
+        <IonApp>
+          <IonReactRouter>
+            <Layout>
+              <IonRouterOutlet>
+                <Route path="/home" component={App} />
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={Signup} />
+                
+                <Redirect exact from="/" to="/home" />
+              </IonRouterOutlet>
+            </Layout>
+          </IonReactRouter>
+        </IonApp>
+      </UserProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );

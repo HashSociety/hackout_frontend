@@ -1,0 +1,159 @@
+import { api } from "@/api";
+import { useMutation } from "@tanstack/react-query";
+import React, { useState } from "react";
+
+
+function Signup() {
+  const signupMutation = useMutation(api.user.signup);
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+    name: "",
+    last_name: "",
+    gender: "",
+    age: "",
+  });
+
+  const signupSubmit = async () => {
+    if (
+      input.email &&
+      input.password &&
+      input.name &&
+      input.last_name &&
+      input.gender &&
+      input.age
+    ) {
+      signupMutation.mutate(
+        {
+          name: input.name,
+          last_name: input.last_name,
+          email: input.email,
+          age: input.age,
+          gender: input.gender,
+          password: input.password,
+        },
+        {
+          onSuccess: (data) => {
+            console.log(data);
+          },
+        }
+      );
+    }
+  };
+
+  return (
+    <div className="w-full text-white h-full flex justify-center items-center">
+      <div className="flex flex-col gap-3">
+        <div className="flex items-center"></div>
+
+        <div>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-bold mb-2">
+              Email
+            </label>
+            <input
+              name="email"
+              value={input.email}
+              onChange={(e) =>
+                setInput((p) => ({ ...p, email: e.target.value }))
+              }
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="email"
+              type="text"
+              placeholder="Email"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-sm font-bold mb-2">
+              Name
+            </label>
+            <input
+              name="name"
+              value={input.name}
+              onChange={(e) =>
+                setInput((p) => ({ ...p, name: e.target.value }))
+              }
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="name"
+              type="text"
+              placeholder="Name"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="last_name" className="block text-sm font-bold mb-2">
+              Last Name
+            </label>
+            <input
+              name="last_name"
+              value={input.last_name}
+              onChange={(e) =>
+                setInput((p) => ({ ...p, last_name: e.target.value }))
+              }
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="last_name"
+              type="text"
+              placeholder="Last Name"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="gender" className="block text-sm font-bold mb-2">
+              Gender
+            </label>
+            <input
+              name="gender"
+              value={input.gender}
+              onChange={(e) =>
+                setInput((p) => ({ ...p, gender: e.target.value }))
+              }
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="gender"
+              type="text"
+              placeholder="Gender"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="age" className="block text-sm font-bold mb-2">
+              Age
+            </label>
+            <input
+              name="age"
+              value={input.age}
+              onChange={(e) => setInput((p) => ({ ...p, age: e.target.value }))}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="age"
+              type="text"
+              placeholder="Age"
+            />
+          </div>
+          <div className="mb-6">
+            <label htmlFor="password" className="block text-sm font-bold mb-2">
+              Password
+            </label>
+            <input
+              name="password"
+              value={input.password}
+              onChange={(e) =>
+                setInput((p) => ({ ...p, password: e.target.value }))
+              }
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              id="password"
+              type="password"
+              placeholder="*****"
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <button
+              type="button"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              onClick={signupSubmit}
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Signup;

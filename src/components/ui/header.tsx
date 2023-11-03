@@ -11,9 +11,11 @@ function Header() {
           </span>
         </Link>
         <div className="flex md:order-2  items-center">
-          <Button type="button" className=" text-xs p-0 px-2 ">
-            Get started
-          </Button>
+          <Link to={"/login"}>
+            <Button type="button" className=" text-xs p-0 px-2 ">
+              Get started
+            </Button>
+          </Link>
           <button
             data-collapse-toggle="navbar-sticky"
             type="button"

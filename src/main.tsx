@@ -33,6 +33,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <IonReactRouter>
         <IonRouterOutlet>
           <Route path="/home" component={App} />
+          <Route path="/new" component={() => <div className="text-white">hello</div>} />
           <Redirect exact from="/" to="/home" />
         </IonRouterOutlet>
       </IonReactRouter>

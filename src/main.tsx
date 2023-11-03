@@ -21,6 +21,7 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
+import { Button } from "./components/ui/button";
 
 /* Ionic Theme variables */
 // import "./variables.css";
@@ -33,7 +34,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <IonReactRouter>
         <IonRouterOutlet>
           <Route path="/home" component={App} />
-          <Route path="/new" component={() => <div className="text-white">hello</div>} />
+          <Route path="/new" component={() => <Button> Shad-cn button</Button>} />
           <Redirect exact from="/" to="/home" />
         </IonRouterOutlet>
       </IonReactRouter>

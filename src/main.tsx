@@ -22,6 +22,8 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import { Button } from "./components/ui/button";
+import Login from "./Pages/Login";
+import Layout from "./components/ui/layout";
 
 /* Ionic Theme variables */
 // import "./variables.css";
@@ -32,11 +34,17 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <IonApp>
       <IonReactRouter>
-        <IonRouterOutlet>
-          <Route path="/home" component={App} />
-          <Route path="/new" component={() => <Button> Shad-cn button</Button>} />
-          <Redirect exact from="/" to="/home" />
-        </IonRouterOutlet>
+        <Layout>
+          <IonRouterOutlet>
+            <Route path="/home" component={App} />
+            <Route path="/login" component={Login} />
+            <Route
+              path="/new"
+              component={() => <Button> Shad-cn button</Button>}
+            />
+            <Redirect exact from="/" to="/home" />
+          </IonRouterOutlet>
+        </Layout>
       </IonReactRouter>
     </IonApp>
   </React.StrictMode>

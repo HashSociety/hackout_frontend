@@ -13,6 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { LuMountainSnow } from "react-icons/lu";
 
 function Header() {
   const [storage, setStorage] = useAtom(storageAtom);
@@ -20,8 +21,8 @@ function Header() {
     <nav className="bg-background  sticky top-0 w-full z-20  left-0 h-14 border-b border">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
         <Link to="/dashboard" className="flex items-center">
-          <span className="self-center text-lg font-semibold whitespace-nowrap text-primary ">
-            Head Together
+          <span className="self-center text-lg font-semibold whitespace-nowrap text-primary flex justify-center items-center gap-2 ">
+            <LuMountainSnow /> Head Together
           </span>
         </Link>
         <div className="flex md:order-2  items-center">

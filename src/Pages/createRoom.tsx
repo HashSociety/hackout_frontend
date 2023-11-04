@@ -11,6 +11,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { Slider } from "@/components/ui/slider";
 import { api } from "@/api";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 import {
   Card,
@@ -21,104 +22,35 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useMutation } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import { MdOutlineSportsVolleyball, MdTravelExplore } from "react-icons/md";
+import { BiMoviePlay } from "react-icons/bi";
+import { RiChat3Fill } from "react-icons/ri";
 
 const presets = [
   {
     name: "Play",
-    color: "bg-green-500",
+    color: "#16a34a",
     className: "bg-green-500/70 border-green-500 border-[6px]",
-
-    value: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="lucide lucide-dribbble"
-      >
-        <circle cx="12" cy="12" r="10" />
-        <path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94" />
-        <path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32" />
-        <path d="M8.56 2.75c4.37 6 6 9.42 8 17.72" />
-      </svg>
-    ),
+    img: <MdOutlineSportsVolleyball />,
   },
   {
     name: "Movie",
-    color: "bg-blue-500",
+    color: "#2563eb",
     className: "border-blue-500 bg-blue-500/70 border-[6px]",
-    value: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="lucide lucide-clapperboard"
-      >
-        <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z" />
-        <path d="m6.2 5.3 3.1 3.9" />
-        <path d="m12.4 3.4 3.1 4" />
-        <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
-      </svg>
-    ),
+    img: <BiMoviePlay />,
   },
   {
     name: "Travel",
-    color: "bg-purple-500",
+    color: "#9333ea",
     className: "border-purple-500 bg-purple-500/70 border-[6px]",
-    value: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="lucide lucide-clapperboard"
-      >
-        <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z" />
-        <path d="m6.2 5.3 3.1 3.9" />
-        <path d="m12.4 3.4 3.1 4" />
-        <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
-      </svg>
-    ),
+    img: <MdTravelExplore />,
   },
   {
     name: "Chit Chat",
-    color: "bg-orange-500",
+    color: "#ea580c",
     className: "border-orange-500 bg-orange-500/70 border-[6px]",
-    value: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="lucide lucide-clapperboard"
-      >
-        <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z" />
-        <path d="m6.2 5.3 3.1 3.9" />
-        <path d="m12.4 3.4 3.1 4" />
-        <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
-      </svg>
-    ),
+    img: <RiChat3Fill />,
   },
 ];
 
@@ -127,13 +59,13 @@ function CreateRoom() {
   const history = useHistory();
   const { toast } = useToast();
   const [input, setInput] = useState({
-    OwnerName: storage.name,
+    OwnerName: storage?.name || "",
     RoomName: "",
     RoomPurpose: "",
     Latitude: "",
     Longitude: "",
     DistanceAllowed: 0,
-    token: storage.token,
+    token: storage?.token || "",
   });
   const [purpose, setPurpose] = useState({
     heading: "",
@@ -148,7 +80,9 @@ function CreateRoom() {
         toast({
           title: "Room Initiated",
           // description: "Welcome!",
-          className: cn("bottom-0 right-0 flex fixed  md:top-4 md:right-4 "),
+          className: cn(
+            "bottom-5 right-0 flex fixed  md:top-4 md:right-4  text-blue-600 bg-muted border-blue-600 mx-3 w-[calc(100%-20px)]  "
+          ),
         });
         setRoomId(data.RoomID);
       }
@@ -157,13 +91,13 @@ function CreateRoom() {
         title: "Error",
         description: "All feilds are required",
         className: cn(
-          "bottom-0 right-0 flex fixed  md:top-4 md:right-4  text-red-600"
+          "bottom-5 right-0 flex fixed  md:top-4 md:right-4  text-red-600 bg-muted border-red-600 mx-3 w-[calc(100%-20px)]  "
         ),
       });
     }
   };
   useEffect(() => {
-    if (!storage.name) {
+    if (storage && !storage.name) {
       history.push("/login");
     }
 
@@ -180,7 +114,7 @@ function CreateRoom() {
           title: "Error",
           description: "Failed to get location",
           className: cn(
-            "bottom-0 right-0 flex fixed  md:top-4 md:right-4  text-red-600"
+            "bottom-5 right-0 flex fixed  md:top-4 md:right-4  text-red-600 bg-muted border-red-600 mx-3 w-[calc(100%-20px)]  "
           ),
         });
       }
@@ -195,7 +129,9 @@ function CreateRoom() {
       toast({
         title: "Purpose Added Successfully",
         // description: "Welcome!",
-        className: cn("top-0 right-0 flex fixed  md:top-4 md:right-4 "),
+        className: cn(
+          "bottom-5 right-0 flex fixed  md:top-4 md:right-4  text-blue-600 bg-muted border-blue-600 mx-3 w-[calc(100%-20px)]  "
+        ),
       });
       setPurpose({
         heading: "",
@@ -235,7 +171,7 @@ function CreateRoom() {
                 {presets.map((preset, i) => (
                   <div
                     key={i}
-                    className={` border rounded-[30px] w-full  h-44 p-3 shadow-xl ${preset.className} `}
+                    className={`relative border rounded-[30px] w-full  h-40 p-3 shadow-xl ${preset.className} overflow-hidden`}
                   >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem
@@ -243,8 +179,18 @@ function CreateRoom() {
                         id={`option-${i}`}
                         className="border-[3px] border-white"
                       />
-                      <Label htmlFor={`option-${i}`}>{preset.name}</Label>
-                      <div>{preset.value}</div>
+                      <Label
+                        className={`text-2xl font-bold `}
+                        style={{
+                          color: preset.color,
+                        }}
+                        htmlFor={`option-${i}`}
+                      >
+                        {preset.name}
+                      </Label>
+                      <div className="absolute -bottom-5 -right-5 text-9xl opacity-50 ">
+                        {preset.img}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -277,69 +223,74 @@ function CreateRoom() {
         </>
       ) : (
         <>
-          <div className=" w-full pt-10 flex  justify-center items-center flex-1">
-            <Card className="w-[350px]">
-              <CardHeader>
-                <CardTitle>Add Some Purpose</CardTitle>
-                <CardDescription>
-                  you can add multiple purpose to your room
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form>
-                  <div className="grid w-full items-center gap-4">
-                    <div className="flex flex-col space-y-1.5">
-                      <Label htmlFor="heading">Heading</Label>
-                      <Input
-                        id="heading"
-                        placeholder="heading of your purpose"
-                        value={purpose.heading}
-                        onChange={(e) =>
-                          setPurpose((p) => ({
-                            ...p,
-                            heading: e.target.value,
-                          }))
-                        }
-                      />
+          <div className=" w-full  flex flex-col  justify-center  items-center  h-[calc(100%-5rem)] ">
+            <div className="flex-1 flex justify-center items-center">
+              <Card className="w-[350px] ">
+                <CardHeader>
+                  <CardTitle>Add Some Purpose</CardTitle>
+                  <CardDescription>
+                    you can add multiple purpose to your room
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <form>
+                    <div className="grid w-full items-center gap-4">
+                      <div className="flex flex-col space-y-1.5">
+                        <Label htmlFor="heading">Heading</Label>
+                        <Input
+                          id="heading"
+                          placeholder="heading of your purpose"
+                          value={purpose.heading}
+                          onChange={(e) =>
+                            setPurpose((p) => ({
+                              ...p,
+                              heading: e.target.value,
+                            }))
+                          }
+                        />
+                      </div>
+                      <div className="flex flex-col space-y-1.5">
+                        <Label htmlFor="description">Description</Label>
+                        <Input
+                          id="description"
+                          placeholder="Type here ..."
+                          value={purpose.value}
+                          onChange={(e) =>
+                            setPurpose((p) => ({
+                              ...p,
+                              value: e.target.value,
+                            }))
+                          }
+                        />
+                      </div>
                     </div>
-                    <div className="flex flex-col space-y-1.5">
-                      <Label htmlFor="description">Description</Label>
-                      <Input
-                        id="description"
-                        placeholder="Type here ..."
-                        value={purpose.value}
-                        onChange={(e) =>
-                          setPurpose((p) => ({
-                            ...p,
-                            value: e.target.value,
-                          }))
-                        }
-                      />
-                    </div>
-                  </div>
-                </form>
-              </CardContent>
-              <CardFooter className="flex justify-between" onClick={() => console.log("working")}>
-                <Button
+                  </form>
+                </CardContent>
+                <CardFooter
+                  className=" cursor-pointer"
                   onClick={() =>
                     addPurposeMutation.mutate({
                       Room_ID: roomId,
                       Purpose_Description_Heading: purpose.value,
                       Purpose_Description_Value: purpose.heading,
-                      token: storage.token,
+                      token: storage?.token || "",
                     })
                   }
                 >
-                  Add
-                </Button>
-              </CardFooter>
-            </Card>
+                  <div className="bg-black text-white px-4 py-2 rounded-xl w-full ">
+                    Add
+                  </div>
+                </CardFooter>
+              </Card>
+            </div>
+            <Link to={"/room"} className="flex p-2 w-full ">
+              <Button className=" w-full flex gap-3">
+                Done <FaArrowRightLong />{" "}
+              </Button>
+            </Link>
           </div>
         </>
       )}
-      <div className="flex p-2">
-        <Button className=" w-full">Done </Button>
-      </div>
     </div>
   );
 }

@@ -63,8 +63,11 @@ function Home() {
 
   return (
     <div>
-      {storage.name ? (
+      {storage?.name ? (
         <div className="flex flex-col pt-14 justify-center items-center">
+          {/* <button onClick={() => api.room.joinedRoom({ token: storage.token })}>
+            Joined{" "}
+          </button> */}
           <Link
             to={"/create"}
             className="flex w-full h-32 justify-center items-center  "
@@ -79,7 +82,7 @@ function Home() {
         "
             >
               <span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">
-                Create Room
+                Find Pals! ✨
               </span>
             </div>
           </Link>

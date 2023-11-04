@@ -14,6 +14,7 @@ export const api = {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
+            "ngrok-skip-browser-warning": "true",
           },
           body: requestBody,
         });
@@ -53,6 +54,7 @@ export const api = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
           },
           body: requestBody,
         });
@@ -76,6 +78,7 @@ export const api = {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
+            "ngrok-skip-browser-warning": "true",
           },
         });
 
@@ -118,9 +121,8 @@ export const api = {
         }
 
         const requestBody = JSON.stringify({
-          OwnerName: OwnerName,
+          OwnerName: RoomName,
           RoomPurpose: RoomPurpose,
-          RoomName: RoomName,
           Latitude: Latitude,
           Longitude: Longitude,
           DistanceAllowed: DistanceAllowed,
@@ -175,6 +177,7 @@ export const api = {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
+            "ngrok-skip-browser-warning": "true",
           },
           body: requestBody,
         });
@@ -221,31 +224,79 @@ export const api = {
         throw new Error("Error occurred during registration request.");
       }
     },
-    search: async (props: {
-      user_latitude: number;
-      user_longitude: number;
-      token: string;
-    }) => {
-      const { user_latitude, user_longitude, token } = props;
-
+    joinedRoom: async (props: { token: string }) => {
       try {
-      
-        const response = await fetch(
-          port +
-            `/search_nearby_rooms?user_latitude=${user_latitude}&user_longitude=${user_longitude}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const data = await response.json();
-        return data;
+        const token = props.token;
+        const response = await fetch(port + `/joined_rooms/`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            "ngrok-skip-browser-warning": "true",
+          },
+        });
+
+        return response.json();
       } catch (e) {
         console.log(e);
         throw new Error("Error occurred during registration request.");
+      }
+    },
+    getRoom: async (props: { room_id: string; token: string }) => {
+      const { room_id, token } = props;
+      try {
+        if (!room_id) {
+          throw new Error("Room ID is required.");
+        }
+
+        const response = await fetch(`${port}/get_room/${room_id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "ngrok-skip-browser-warning": "true",
+          },
+        });
+
+        if (response.status === 200) {
+          const data = await response.json();
+          return data;
+        } else if (response.status === 422) {
+          const errorData = await response.json();
+          throw new Error("Validation Error: " + JSON.stringify(errorData));
+        } else {
+          throw new Error("Error occurred during the request.");
+        }
+      } catch (e) {
+        throw new Error("Error occurred during the request.");
+      }
+    },
+    getRoomMembers: async (props: { room_id: string; token: string }) => {
+      const { room_id, token } = props;
+      try {
+        if (!room_id) {
+          throw new Error("Room ID is required.");
+        }
+
+        const response = await fetch(`${port}/room_members/${room_id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "ngrok-skip-browser-warning": "true",
+          },
+        });
+
+        if (response.status === 200) {
+          const data = await response.json();
+          return data;
+        } else if (response.status === 422) {
+          const errorData = await response.json();
+          throw new Error("Validation Error: " + JSON.stringify(errorData));
+        } else {
+          throw new Error("Error occurred during the request.");
+        }
+      } catch (e) {
+        console.log(e);
+        throw Error("Error occurred during the request.");
       }
     },
   },

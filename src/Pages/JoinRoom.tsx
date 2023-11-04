@@ -8,7 +8,7 @@ const JoinRoom = () => {
 
   const [input, setInput] = useState({
     room_id: "d04dc13f-0014-4803-ab76-db7712a4c65a",
-    token: storage.token,
+    token: storage?.token || "",
   });
 
   const JoinRoomData = async () => {

@@ -1,12 +1,13 @@
 import { api } from "../api";
 import { useAtom } from "jotai";
 import { storageAtom } from "../store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
 import { Storage } from "@/types/storage";
+import { cn } from "@/lib/utils";
 
 const Login = () => {
   const { toast } = useToast();
@@ -34,10 +35,7 @@ const Login = () => {
 
     if (data.access_token) {
       setTokenToStorage(data.access_token);
-      toast({
-        title: "Loggedin Successfully",
-        description: "Welcome!",
-      });
+
       const user = await api.user.getUser({ token: data.access_token });
       if (user) {
         setStorage((p: any) => ({
@@ -46,6 +44,13 @@ const Login = () => {
           email: user.EmailId,
         }));
         history.push("/dashboard");
+        toast({
+          title: "Loggedin Successfully",
+          description: "Welcome!",
+          className: cn(
+            "bottom-5 right-0 flex fixed  md:top-4 md:right-4  text-blue-600 bg-muted border-blue-600 mx-3 w-[calc(100%-20px)]  "
+          ),
+        });
       }
     }
   };

@@ -29,6 +29,7 @@ function Layout(props: { children: React.ReactNode }) {
   }, [storage]);
 
   useEffect(() => {
+    
     getStorage();
   }, []);
 

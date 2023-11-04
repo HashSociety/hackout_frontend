@@ -12,6 +12,16 @@ import { cn } from "@/lib/utils";
 import { Slider } from "@/components/ui/slider";
 import { api } from "@/api";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useMutation } from "@tanstack/react-query";
+
 const presets = [
   {
     name: "Play",
@@ -125,19 +135,20 @@ function CreateRoom() {
     DistanceAllowed: 0,
     token: storage.token,
   });
+  const [purpose, setPurpose] = useState({
+    heading: "",
+    value: "",
+  });
 
   const [roomId, setRoomId] = useState(null);
   const handleCreateRoom = async () => {
-    console.log(input);
     try {
       const data = await api.room.create(input);
       if (data) {
         toast({
           title: "Room Initiated",
           // description: "Welcome!",
-          className: cn(
-            "bottom-0 right-0 flex fixed  md:top-4 md:right-4 "
-          ),
+          className: cn("bottom-0 right-0 flex fixed  md:top-4 md:right-4 "),
         });
         setRoomId(data.RoomID);
       }
@@ -177,7 +188,22 @@ function CreateRoom() {
 
     if (input.Latitude === "" || input.Longitude === "") getLocation();
   }, []);
-  console.log(roomId);
+
+  const addPurposeMutation = useMutation({
+    mutationFn: api.room.addPurpose,
+    onSuccess: (data) => {
+      toast({
+        title: "Purpose Added Successfully",
+        // description: "Welcome!",
+        className: cn("top-0 right-0 flex fixed  md:top-4 md:right-4 "),
+      });
+      setPurpose({
+        heading: "",
+        value: "",
+      });
+    },
+  });
+
   return (
     <div className="mt-20 w-full h-full overflow-auto ">
       {!roomId ? (
@@ -251,9 +277,69 @@ function CreateRoom() {
         </>
       ) : (
         <>
-          <div>{roomId}</div>
+          <div className=" w-full pt-10 flex  justify-center items-center flex-1">
+            <Card className="w-[350px]">
+              <CardHeader>
+                <CardTitle>Add Some Purpose</CardTitle>
+                <CardDescription>
+                  you can add multiple purpose to your room
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form>
+                  <div className="grid w-full items-center gap-4">
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="heading">Heading</Label>
+                      <Input
+                        id="heading"
+                        placeholder="heading of your purpose"
+                        value={purpose.heading}
+                        onChange={(e) =>
+                          setPurpose((p) => ({
+                            ...p,
+                            heading: e.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-1.5">
+                      <Label htmlFor="description">Description</Label>
+                      <Input
+                        id="description"
+                        placeholder="Type here ..."
+                        value={purpose.value}
+                        onChange={(e) =>
+                          setPurpose((p) => ({
+                            ...p,
+                            value: e.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+                  </div>
+                </form>
+              </CardContent>
+              <CardFooter className="flex justify-between" onClick={() => console.log("working")}>
+                <Button
+                  onClick={() =>
+                    addPurposeMutation.mutate({
+                      Room_ID: roomId,
+                      Purpose_Description_Heading: purpose.value,
+                      Purpose_Description_Value: purpose.heading,
+                      token: storage.token,
+                    })
+                  }
+                >
+                  Add
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
         </>
       )}
+      <div className="flex p-2">
+        <Button className=" w-full">Done </Button>
+      </div>
     </div>
   );
 }

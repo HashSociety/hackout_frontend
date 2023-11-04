@@ -7,6 +7,8 @@ import { api } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 import { Storage } from "@/types/storage";
 
+import { Sheet } from "@/components/ui/sheet";
+
 function Layout(props: { children: React.ReactNode }) {
   const { children } = props;
   const [storage, setStorage] = useAtom(storageAtom);
@@ -31,12 +33,12 @@ function Layout(props: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div>
+    <Sheet>
       <Header />
 
       {children}
       <Toaster />
-    </div>
+    </Sheet>
   );
 }
 

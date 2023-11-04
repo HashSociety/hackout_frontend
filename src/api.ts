@@ -142,5 +142,56 @@ export const api = {
         throw new Error("Error occurred during registration request.");
       }
     },
+    addPurpose: async (props: {
+      Room_ID: string;
+      Purpose_Description_Heading: string;
+      Purpose_Description_Value: string;
+      token: string;
+    }) => {
+      const {
+        Room_ID,
+        Purpose_Description_Heading,
+        Purpose_Description_Value,
+        token,
+      } = props;
+
+      try {
+        if (
+          !Room_ID ||
+          !Purpose_Description_Heading ||
+          !Purpose_Description_Value
+        ) {
+          throw new Error("All fields are required.");
+        }
+
+        const requestBody = JSON.stringify({
+          Room_ID: Room_ID,
+          Purpose_Description_Heading: Purpose_Description_Heading,
+          Purpose_Description_Value: Purpose_Description_Value,
+        });
+
+        const response = await fetch(port + "/post_add_purpose", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: requestBody,
+        });
+
+        if (response.status === 200) {
+          const data = await response.json();
+          return data;
+        } else if (response.status === 422) {
+          const errorData = await response.json();
+          throw new Error("Validation Error: " + JSON.stringify(errorData));
+        } else {
+          throw new Error("Error occurred during the request.");
+        }
+      } catch (e) {
+        console.log(e);
+        throw new Error("Error occurred during the request.");
+      }
+    },
   },
 };

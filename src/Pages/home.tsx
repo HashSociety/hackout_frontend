@@ -1,7 +1,12 @@
+import { Link } from "react-router-dom";
+
 function Home() {
   return (
     <div className="flex flex-col pt-14 justify-center items-center">
-      <div className="flex w-full h-32 justify-center items-center  ">
+      <Link
+        to={"/create"}
+        className="flex w-full h-32 justify-center items-center  "
+      >
         <div
           className="button w-40 h-16 bg-primary  cursor-pointer select-none
         active:translate-y-2  active:[box-shadow:0_0px_0_0_#202124,0_0px_0_0_#202124]
@@ -15,10 +20,11 @@ function Home() {
             Create Room
           </span>
         </div>
-      </div>
+      </Link>
+      <Link to={"/create"} >sds</Link>
 
       <div className="flex flex-col justify-center items-center mt-10">
-        <div className="text-2xl">Join Rooms</div> 
+        <div className="text-2xl">Join Rooms</div>
 
         <div className="grid grid-cols-2 gap-4 mt-10 ">
           <div className=" flex flex-col justify-between p-3 h-[20vh] w-[40vw] border-2  rounded-lg">
@@ -37,7 +43,6 @@ function Home() {
             <div>04</div>
             <div>Cab</div>
           </div>
-          
         </div>
       </div>
     </div>

@@ -22,11 +22,16 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
-import {
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { UserProvider } from "./hooks/UserProvider";
+import { IonRouterOutlet } from "@ionic/react";
+import "./App.css";
+import Layout from "./components/layout";
+import { Redirect, Route } from "react-router";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import Home from "./Pages/home";
+import CreateRoom from "./Pages/createRoom";
 
 /* Ionic Theme variables */
 // import "./variables.css";
@@ -41,7 +46,15 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <UserProvider>
         <IonApp>
           <IonReactRouter>
-            <App />
+            <Layout>
+              <IonRouterOutlet>
+                <Route path="/dashboard" component={Home} />
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={Signup} />
+                <Route path="/create" component={CreateRoom} />
+                <Redirect exact from="/" to="/dashboard" />
+              </IonRouterOutlet>
+            </Layout>
           </IonReactRouter>
         </IonApp>
       </UserProvider>

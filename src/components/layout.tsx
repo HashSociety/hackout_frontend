@@ -5,6 +5,15 @@ import { storageAtom } from "../store";
 import { Toaster } from "./ui/toaster";
 import { api } from "@/api";
 
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
 function Layout(props: { children: React.ReactNode }) {
   const { children } = props;
   const [storage, setStorage] = useAtom(storageAtom);
@@ -40,6 +49,7 @@ function Layout(props: { children: React.ReactNode }) {
   return (
     <div>
       <Header />
+       
       {children}
       <Toaster />
     </div>

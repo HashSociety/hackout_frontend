@@ -38,7 +38,7 @@ const Login = () => {
         title: "Loggedin Successfully",
         description: "Welcome!",
       });
-      history.push("/home");
+      history.push("/dashboard");
     }
   };
 

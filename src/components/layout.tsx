@@ -37,15 +37,7 @@ function Layout(props: { children: React.ReactNode }) {
     getStorage();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await getStorage();
-      const data = await api.user.getUser();
-      console.log(data);
-    };
   
-    fetchData();
-  }, []);
   return (
     <div>
       <Header />

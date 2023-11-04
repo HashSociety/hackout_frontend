@@ -1,11 +1,3 @@
-
-const getToken = () => {
-  const storage: Storage = JSON.parse(
-    localStorage.getItem("h-store") || "{}"
-  );
-  return storage.token;
-};
-
 export const api = {
   user: {
     login: async (props: { username: string; password: string }) => {
@@ -77,8 +69,11 @@ export const api = {
       }
     },
     getUser: async () => {
-      const token = getToken();
-    
+      const storage: Storage = await JSON.parse(
+        localStorage.getItem("h-store") || "{}"
+      );
+      const token = storage.token;
+
       if (token) {
         const res = await fetch(
           import.meta.env.VITE_BACKEND_URL + "/get_user_info",
@@ -89,7 +84,7 @@ export const api = {
             },
           }
         );
-    
+
         return res.json();
       } else {
         throw new Error("Token is not available.");
@@ -98,14 +93,12 @@ export const api = {
   },
 
   room: {
-    create: async(props:{
+    create: async (props: {
       OwnerName: string;
       RoomName: string;
       Latitude: string;
       Longitude: string;
       DistanceAllowed: string;
-    }) => {
-      
-    }
-  }
+    }) => {},
+  },
 };

@@ -5,7 +5,7 @@ function Header() {
   return (
     <nav className="bg-background  sticky top-0 w-full z-20  left-0 h-14 border-b border">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
-        <Link to="/" className="flex items-center">
+        <Link to="/dashboard" className="flex items-center">
           <span className="self-center text-lg font-semibold whitespace-nowrap text-primary ">
             Head Together
           </span>

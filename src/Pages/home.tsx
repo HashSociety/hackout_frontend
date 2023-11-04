@@ -1,3 +1,4 @@
+import { api } from "@/api";
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -21,7 +22,7 @@ function Home() {
           </span>
         </div>
       </Link>
-      <Link to={"/create"} >sds</Link>
+
 
       <div className="flex flex-col justify-center items-center mt-10">
         <div className="text-2xl">Join Rooms</div>

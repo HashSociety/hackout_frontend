@@ -1,3 +1,11 @@
+
+const getToken = () => {
+  const storage: Storage = JSON.parse(
+    localStorage.getItem("h-store") || "{}"
+  );
+  return storage.token;
+};
+
 export const api = {
   user: {
     login: async (props: { username: string; password: string }) => {
@@ -68,20 +76,24 @@ export const api = {
         throw new Error("Error occurred during registration request.");
       }
     },
-    get: async (props: { token: string }) => {
-      const { token } = props;
-
-      const res = await fetch(
-        import.meta.env.VITE_BACKEND_URL + "/get_userid",
-        {
-          method: "GET",
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-
-      return res.json();
+    getUser: async () => {
+      const token = getToken();
+    
+      if (token) {
+        const res = await fetch(
+          import.meta.env.VITE_BACKEND_URL + "/get_user_info",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+    
+        return res.json();
+      } else {
+        throw new Error("Token is not available.");
+      }
     },
   },
 

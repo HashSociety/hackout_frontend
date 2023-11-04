@@ -3,6 +3,7 @@ import Header from "./ui/header";
 import { useAtom } from "jotai";
 import { storageAtom } from "../store";
 import { Toaster } from "./ui/toaster";
+import { api } from "@/api";
 
 function Layout(props: { children: React.ReactNode }) {
   const { children } = props;
@@ -13,7 +14,7 @@ function Layout(props: { children: React.ReactNode }) {
     const storage = localStorage.getItem("h-store");
     if (storage) {
       setStorage(JSON.parse(storage));
-    } else { 
+    } else {
       setStorage({ token: null });
     }
   };
@@ -27,6 +28,15 @@ function Layout(props: { children: React.ReactNode }) {
     getStorage();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      await getStorage();
+      const data = await api.user.getUser();
+      console.log(data);
+    };
+  
+    fetchData();
+  }, []);
   return (
     <div>
       <Header />

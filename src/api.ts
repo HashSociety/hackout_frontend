@@ -299,5 +299,32 @@ export const api = {
         throw Error("Error occurred during the request.");
       }
     },
+    search: async (props: {
+      user_latitude: number;
+      user_longitude: number;
+      token: string;
+    }) => {
+      const { user_latitude, user_longitude, token } = props;
+
+      try {
+      
+        const response = await fetch(
+          port +
+            `/search_nearby_rooms?user_latitude=${user_latitude}&user_longitude=${user_longitude}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await response.json();
+        return data;
+      } catch (e) {
+        console.log(e);
+        throw new Error("Error occurred during registration request.");
+      }
+    },
   },
 };

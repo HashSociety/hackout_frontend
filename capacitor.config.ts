@@ -7,7 +7,7 @@ const config: CapacitorConfig = {
   server: {
     androidScheme: "http",
     cleartext: true,
-    allowNavigation: ["http://192.168.29.208:8000*"],
+    allowNavigation: ["http://127.0.0.1:8000*"],
   },
 };
 

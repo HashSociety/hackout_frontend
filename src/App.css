@@ -9,3 +9,7 @@
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
+
+.bg-image{
+  background: url(./assets/blue-wall-background.jpg);
+}

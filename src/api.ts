@@ -1,4 +1,5 @@
-const port = "http://127.0.0.1:8000";
+const port =
+  "http://127.0.0.1:8000";
 
 export const api = {
   user: {
@@ -14,6 +15,7 @@ export const api = {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
+            "ngrok-skip-browser-warning": "true",
           },
           body: requestBody,
         });
@@ -53,6 +55,7 @@ export const api = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
           },
           body: requestBody,
         });
@@ -76,6 +79,7 @@ export const api = {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
+            "ngrok-skip-browser-warning": "true",
           },
         });
 
@@ -175,6 +179,7 @@ export const api = {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
+            "ngrok-skip-browser-warning": "true",
           },
           body: requestBody,
         });

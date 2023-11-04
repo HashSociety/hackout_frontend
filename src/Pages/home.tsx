@@ -9,7 +9,7 @@ function Home() {
 
   return (
     <div>
-      {storage.name ? (
+      {storage?.name ? (
         <div className="flex flex-col pt-14 justify-center items-center">
           <Link
             to={"/create"}
@@ -25,7 +25,7 @@ function Home() {
         "
             >
               <span className="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">
-                Create Room
+                Find Pals! ✨
               </span>
             </div>
           </Link>

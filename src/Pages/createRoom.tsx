@@ -127,13 +127,13 @@ function CreateRoom() {
   const history = useHistory();
   const { toast } = useToast();
   const [input, setInput] = useState({
-    OwnerName: storage.name,
+    OwnerName: storage?.name || "",
     RoomName: "",
     RoomPurpose: "",
     Latitude: "",
     Longitude: "",
     DistanceAllowed: 0,
-    token: storage.token,
+    token: storage?.token || "",
   });
   const [purpose, setPurpose] = useState({
     heading: "",
@@ -163,7 +163,7 @@ function CreateRoom() {
     }
   };
   useEffect(() => {
-    if (!storage.name) {
+    if (storage && !storage.name) {
       history.push("/login");
     }
 
@@ -319,19 +319,18 @@ function CreateRoom() {
                   </div>
                 </form>
               </CardContent>
-              <CardFooter className="flex justify-between" onClick={() => console.log("working")}>
-                <Button
-                  onClick={() =>
-                    addPurposeMutation.mutate({
-                      Room_ID: roomId,
-                      Purpose_Description_Heading: purpose.value,
-                      Purpose_Description_Value: purpose.heading,
-                      token: storage.token,
-                    })
-                  }
-                >
-                  Add
-                </Button>
+              <CardFooter
+                className=" cursor-pointer"
+                onClick={() =>
+                  addPurposeMutation.mutate({
+                    Room_ID: roomId,
+                    Purpose_Description_Heading: purpose.value,
+                    Purpose_Description_Value: purpose.heading,
+                    token: storage?.token || "",
+                  })
+                }
+              >
+                <div className="bg-black text-white px-4 py-2 rounded-xl w-full text-center">Add</div>
               </CardFooter>
             </Card>
           </div>

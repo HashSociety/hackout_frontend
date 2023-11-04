@@ -198,5 +198,33 @@ export const api = {
         throw new Error("Error occurred during the request.");
       }
     },
+    join: async (props: { room_id: string; token: string }) => {
+      const { room_id, token } = props;
+
+      try {
+        if (!room_id) {
+          throw new Error("All fields are required.");
+        }
+
+        const requestBody = JSON.stringify({
+          room_id: room_id,
+        });
+
+        const response = await fetch(port + `/join_room/${room_id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: requestBody,
+        });
+
+        const data = await response.json();
+        return data;
+      } catch (e) {
+        console.log(e);
+        throw new Error("Error occurred during registration request.");
+      }
+    },
   },
 };

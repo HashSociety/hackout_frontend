@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { Button } from "./button";
 import { useAtom } from "jotai";
 import { storageAtom } from "@/store";
-
+import { BiUserCircle } from "react-icons/bi";
+import { HiLogout } from "react-icons/hi";
 function Header() {
   const [storage, setStorage] = useAtom(storageAtom);
   return (
@@ -21,7 +22,16 @@ function Header() {
               </Button>
             </Link>
           ) : (
-            <div>{storage.name}</div>
+            <Button
+              type="button"
+              className=" text-xs p-0 px-2 flex gap-2"
+              onClick={() => {
+                localStorage.removeItem("h-store");
+                window.location.reload();
+              }}
+            >
+              <BiUserCircle /> Logout <HiLogout />
+            </Button>
           )}
           <button
             data-collapse-toggle="navbar-sticky"

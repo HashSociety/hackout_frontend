@@ -1,4 +1,4 @@
-const port = "http://192.168.29.208:8000";
+const port = "http://127.0.0.1:8000";
 
 export const api = {
   user: {

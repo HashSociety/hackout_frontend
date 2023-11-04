@@ -84,4 +84,16 @@ export const api = {
       return res.json();
     },
   },
+
+  room: {
+    create: async(props:{
+      OwnerName: string;
+      RoomName: string;
+      Latitude: string;
+      Longitude: string;
+      DistanceAllowed: string;
+    }) => {
+      
+    }
+  }
 };

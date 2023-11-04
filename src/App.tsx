@@ -8,17 +8,13 @@ import Home from "./Pages/home";
 
 function App() {
   return (
-   
-      <Layout>
-        <IonRouterOutlet>
-          <Route path="/home" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-
-          <Redirect exact from="/" to="/home" />
-        </IonRouterOutlet>
-      </Layout>
-    
+    <Layout>
+      <IonRouterOutlet>
+        <Route path="/" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+      </IonRouterOutlet>
+    </Layout>
   );
 }
 

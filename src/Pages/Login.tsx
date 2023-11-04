@@ -3,7 +3,7 @@ import { api } from "../api";
 import { useAtom } from "jotai";
 import { storageAtom } from "../store";
 import { useState } from "react";
-import { useToast } from "../components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { useHistory } from "react-router";
 
 const Login = () => {

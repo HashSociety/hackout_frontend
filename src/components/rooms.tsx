@@ -6,6 +6,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function Rooms() {
   const [storage, setStorage] = useAtom(storageAtom);
@@ -38,6 +39,14 @@ function Rooms() {
                 </Button>
               </Link>
             ))}
+
+          {roomsQuery.isLoading && (
+            <div className=" flex gap-2 w-full flex-col ">
+              <Skeleton className="h-2" />
+              <Skeleton className="w-4/5 h-2" />
+              <Skeleton className="w-3/5 h-2" />
+            </div>
+          )}
         </div>
       </div>
     </div>

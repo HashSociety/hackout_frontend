@@ -1,7 +1,7 @@
 import { api } from "@/api";
 import { useToast } from "../components/ui/use-toast";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router";
 
 function Signup() {

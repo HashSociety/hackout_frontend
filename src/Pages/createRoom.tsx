@@ -1,9 +1,14 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState } from "react";
+import { storageAtom } from "@/store";
+import { useAtom } from "jotai";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 
 function CreateRoom() {
+  const [storage, setStorage] = useAtom(storageAtom);
+  const history = useHistory();
   const [input, setInput] = useState({
     OwnerName: "",
     RoomName: "",
@@ -111,14 +116,19 @@ function CreateRoom() {
       ),
     },
   ];
-  console.log;
+
+  useEffect(() => {
+    if (!storage.name) {
+      history.push("/login");
+    }
+  }, []);
   return (
     <div className="mt-20 w-full h-full ">
       <div className="text-3xl font-bold px-4">Create a room</div>
       <br />
       <div className="  p-4 ">
-        <Label className="text-lg"> Owner Name </Label>
-        <Input placeholder="owener name" className="mt-3" />
+        {/* <Label className="text-lg"> Owner Name </Label>
+        <Input placeholder="owener name" value={input.OwnerName} className="mt-3" /> */}
         <br />
         <Label className="text-lg"> Theme </Label>
         <RadioGroup

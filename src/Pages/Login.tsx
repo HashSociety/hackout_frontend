@@ -38,7 +38,6 @@ const Login = () => {
         title: "Loggedin Successfully",
         description: "Welcome!",
       });
-      history.push("/dashboard");
       const user = await api.user.getUser({ token: data.access_token });
       if (user) {
         setStorage((p: any) => ({
@@ -46,6 +45,7 @@ const Login = () => {
           name: user.Name,
           email: user.EmailId,
         }));
+        history.push("/dashboard");
       }
     }
   };

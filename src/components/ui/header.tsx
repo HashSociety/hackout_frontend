@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { Button } from "./button";
+import { useAtom } from "jotai";
+import { storageAtom } from "@/store";
 
 function Header() {
+  const [storage, setStorage] = useAtom(storageAtom);
   return (
     <nav className="bg-background  sticky top-0 w-full z-20  left-0 h-14 border-b border">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
@@ -11,11 +14,15 @@ function Header() {
           </span>
         </Link>
         <div className="flex md:order-2  items-center">
-          <Link to={"/login"}>
-            <Button type="button" className=" text-xs p-0 px-2 ">
-              Login
-            </Button>
-          </Link>
+          {!storage?.name ? (
+            <Link to={"/login"}>
+              <Button type="button" className=" text-xs p-0 px-2 ">
+                Login
+              </Button>
+            </Link>
+          ) : (
+            <div>{storage.name}</div>
+          )}
           <button
             data-collapse-toggle="navbar-sticky"
             type="button"

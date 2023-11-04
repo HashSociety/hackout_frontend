@@ -1,4 +1,3 @@
-
 import { api } from "../api";
 import { useAtom } from "jotai";
 import { storageAtom } from "../store";
@@ -6,6 +5,8 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+
+import { Storage } from "@/types/storage";
 
 const Login = () => {
   const { toast } = useToast();
@@ -18,8 +19,7 @@ const Login = () => {
   });
 
   const setTokenToStorage = (token: string) => {
-    localStorage.removeItem("token");
-    setStorage((p) => ({ ...p, token: token }));
+    setStorage((p: Storage) => ({ ...p, token: token }));
   };
 
   const handleLogin = async () => {
@@ -39,14 +39,21 @@ const Login = () => {
         description: "Welcome!",
       });
       history.push("/dashboard");
+      console.log("starter");
+      const user = await api.user.getUser();
+      if (user) {
+        setStorage((p: Storage) => ({
+          ...p,
+          name: user.Name,
+          email: user.EmailId,
+        }));
+      }
     }
   };
 
   return (
     <div className="w-full text-white h-full flex flex-col justify-center items-center">
-    <div className="text-black text-3xl ">
-      Login
-    </div>
+      <div className="text-black text-3xl ">Login</div>
       <div className="flex flex-col gap-3">
         <div className="flex items-center"></div>
 

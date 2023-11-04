@@ -22,7 +22,6 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { UserProvider } from "./hooks/UserProvider";
 import { IonRouterOutlet } from "@ionic/react";
 import "./App.css";
@@ -32,20 +31,28 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Home from "./Pages/home";
 import CreateRoom from "./Pages/createRoom";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 /* Ionic Theme variables */
 // import "./variables.css";
-
-const queryClient = new QueryClient();
 
 setupIonicReact();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        <IonApp>
-          <IonReactRouter>
+    <UserProvider>
+      <IonApp>
+        <IonReactRouter>
+          <QueryClientProvider client={queryClient}>
             <Layout>
               <IonRouterOutlet>
                 <Route path="/dashboard" component={Home} />
@@ -55,9 +62,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Redirect exact from="/" to="/dashboard" />
               </IonRouterOutlet>
             </Layout>
-          </IonReactRouter>
-        </IonApp>
-      </UserProvider>
-    </QueryClientProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </IonReactRouter>
+      </IonApp>
+    </UserProvider>
   </React.StrictMode>
 );

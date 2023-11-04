@@ -1,3 +1,5 @@
 export type Storage = {
-    token: string | null;
-}
+  token?: string ;
+  name?: string ;
+  email?: string ;
+};

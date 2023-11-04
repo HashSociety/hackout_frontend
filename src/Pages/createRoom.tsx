@@ -26,9 +26,9 @@ function CreateRoom() {
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           className="lucide lucide-dribbble"
         >
           <circle cx="12" cy="12" r="10" />
@@ -50,9 +50,9 @@ function CreateRoom() {
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           className="lucide lucide-clapperboard"
         >
           <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z" />
@@ -74,9 +74,9 @@ function CreateRoom() {
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           className="lucide lucide-clapperboard"
         >
           <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z" />
@@ -98,9 +98,9 @@ function CreateRoom() {
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           className="lucide lucide-clapperboard"
         >
           <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z" />
@@ -123,7 +123,9 @@ function CreateRoom() {
         <Label className="text-lg"> Theme </Label>
         <RadioGroup
           defaultValue="option-one"
-          onValueChange={(e) => setInput((prev) => ({ ...prev, RoomName: e }))}
+          onValueChange={(e: string) =>
+            setInput((prev) => ({ ...prev, RoomName: e }))
+          }
         >
           <div className="gap-3 text-white absolute grid grid-cols-2 w-[calc(100%-32px)] mt-3 ">
             {presets.map((preset, i) => (

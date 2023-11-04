@@ -25,7 +25,7 @@ function Rooms() {
           Joined Rooms
         </div>
         <br />
-        <div className="grid grid-cols-1 gap-4 pt-4  h-full overflow-auto">
+        <div className="flex  flex-col gap-4 pt-4  h-full overflow-auto">
           {allRooms &&
             allRooms.map((room: any, index: number) => (
               <Link to={`/room/${room.RoomID}`} className="w-full" key={index}>

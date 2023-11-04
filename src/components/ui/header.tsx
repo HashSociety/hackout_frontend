@@ -36,13 +36,13 @@ function Header() {
             <Button
               type="button"
               variant={"secondary"}
-              className=" text-xs p-0 px-2 flex gap-2 font-bold"
+              className=" text-xs p-0 px-2 flex gap-1 font-bold"
               onClick={() => {
                 localStorage.removeItem("h-store");
                 window.location.reload();
               }}
             >
-              <BiUserCircle size={25} /> Logout <HiLogout />
+              <BiUserCircle size={20} /> Logout <HiLogout />
             </Button>
           )}
           <SheetTrigger>

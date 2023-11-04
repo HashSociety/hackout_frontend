@@ -40,6 +40,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import JoinRoom from "./Pages/JoinRoom";
+import Room from "./components/Room";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +61,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Route path="/signup" component={Signup} />
                 <Route path="/create" component={CreateRoom} />
                 <Route path="/join" component={JoinRoom} />
+                <Route path="/room" component={Room} />
                 <Redirect exact from="/" to="/dashboard" />
               </IonRouterOutlet>
             </Layout>

@@ -1,5 +1,4 @@
-const port =
-  "http://127.0.0.1:8000";
+const port = "http://127.0.0.1:8000";
 
 export const api = {
   user: {
@@ -122,9 +121,8 @@ export const api = {
         }
 
         const requestBody = JSON.stringify({
-          OwnerName: OwnerName,
+          OwnerName: RoomName,
           RoomPurpose: RoomPurpose,
-          RoomName: RoomName,
           Latitude: Latitude,
           Longitude: Longitude,
           DistanceAllowed: DistanceAllowed,
@@ -221,6 +219,23 @@ export const api = {
 
         const data = await response.json();
         return data;
+      } catch (e) {
+        console.log(e);
+        throw new Error("Error occurred during registration request.");
+      }
+    },
+    joinedRoom: async (props: { token: string }) => {
+      try {
+        const token = props.token;
+        const response = await fetch(port + `/joined_rooms/`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        return response.json();
       } catch (e) {
         console.log(e);
         throw new Error("Error occurred during registration request.");

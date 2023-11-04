@@ -3,7 +3,7 @@ import { Button } from "./button";
 
 function Header() {
   return (
-    <nav className="bg-background  fixed w-full z-20 top-0 left-0 h-18 border-b border">
+    <nav className="bg-background  sticky top-0 w-full z-20  left-0 h-14 border-b border">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
         <Link to="/" className="flex items-center">
           <span className="self-center text-lg font-semibold whitespace-nowrap text-primary ">

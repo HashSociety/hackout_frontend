@@ -1,7 +1,10 @@
 import { api } from "@/api";
+import { storageAtom } from "@/store";
+import { useAtom } from "jotai";
 import { Link } from "react-router-dom";
 
 function Home() {
+  const [storage, setStorage] = useAtom(storageAtom);
   return (
     <div className="flex flex-col pt-14 justify-center items-center">
       <Link
@@ -22,7 +25,6 @@ function Home() {
           </span>
         </div>
       </Link>
-
 
       <div className="flex flex-col justify-center items-center mt-10">
         <div className="text-2xl">Join Rooms</div>

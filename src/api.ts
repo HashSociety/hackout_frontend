@@ -10,16 +10,13 @@ export const api = {
           username
         )}&password=${encodeURIComponent(password)}`;
 
-        const response = await fetch(
-          port + "/login",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: requestBody,
-          }
-        );
+        const response = await fetch(port + "/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: requestBody,
+        });
 
         const data = await response.json();
         return data;
@@ -52,16 +49,13 @@ export const api = {
           age: age,
         });
 
-        const response = await fetch(
-          port + "/signup",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: requestBody,
-          }
-        );
+        const response = await fetch(port + "/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: requestBody,
+        });
 
         const data = await response.json();
         return data;
@@ -78,15 +72,12 @@ export const api = {
       const token = props.token;
 
       if (token) {
-        const res = await fetch(
-          port + "/get_user_info",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const res = await fetch(port + "/get_user_info", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         return res.json();
       } else {
@@ -101,7 +92,55 @@ export const api = {
       RoomName: string;
       Latitude: string;
       Longitude: string;
-      DistanceAllowed: string;
-    }) => {},
+      DistanceAllowed: number;
+      RoomPurpose: string;
+      token: string;
+    }) => {
+      const {
+        OwnerName,
+        RoomPurpose,
+        RoomName,
+        Latitude,
+        Longitude,
+        DistanceAllowed,
+        token,
+      } = props;
+
+      try {
+        if (
+          !OwnerName ||
+          !RoomName ||
+          !Latitude ||
+          !Longitude ||
+          !DistanceAllowed
+        ) {
+          throw new Error("All fields are required.");
+        }
+
+        const requestBody = JSON.stringify({
+          OwnerName: OwnerName,
+          RoomPurpose: RoomPurpose,
+          RoomName: RoomName,
+          Latitude: Latitude,
+          Longitude: Longitude,
+          DistanceAllowed: DistanceAllowed,
+        });
+
+        const response = await fetch(port + "/create_room", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: requestBody,
+        });
+
+        const data = await response.json();
+        return data;
+      } catch (e) {
+        console.log(e);
+        throw new Error("Error occurred during registration request.");
+      }
+    },
   },
 };

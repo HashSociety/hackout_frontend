@@ -61,7 +61,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Redirect exact from="/" to="/dashboard" />
               </IonRouterOutlet>
             </Layout>
-            <ReactQueryDevtools initialIsOpen={false} />
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           </QueryClientProvider>
         </IonReactRouter>
       </IonApp>

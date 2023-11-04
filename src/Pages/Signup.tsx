@@ -1,10 +1,13 @@
 import { api } from "@/api";
-import { useMutation } from "@tanstack/react-query";
-import React, { useState } from "react";
+import { useToast } from "../components/ui/use-toast";
 
+import React, { useState } from "react";
+import { useHistory } from "react-router";
 
 function Signup() {
-  const signupMutation = useMutation(api.user.signup);
+
+  const { toast } = useToast();
+  const history = useHistory();
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -14,30 +17,25 @@ function Signup() {
     age: "",
   });
 
-  const signupSubmit = async () => {
-    if (
-      input.email &&
-      input.password &&
-      input.name &&
-      input.last_name &&
-      input.gender &&
-      input.age
-    ) {
-      signupMutation.mutate(
-        {
-          name: input.name,
-          last_name: input.last_name,
-          email: input.email,
-          age: input.age,
-          gender: input.gender,
-          password: input.password,
-        },
-        {
-          onSuccess: (data) => {
-            console.log(data);
-          },
-        }
-      );
+
+
+  const handleSignup = async () => {
+    const data = await api.user.signup({
+      name: input.name,
+      last_name: input.last_name,
+      email: input.email,
+      age: input.age,
+      gender: input.gender,
+      password: input.password,
+    });
+    console.log(data);
+
+    if (data) {
+      toast({
+        title: "Signed up Successfully",
+        description: "",
+      });
+      history.push("/login");
     }
   };
 
@@ -145,7 +143,7 @@ function Signup() {
             <button
               type="button"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={signupSubmit}
+              onClick={handleSignup}
             >
               Sign Up
             </button>

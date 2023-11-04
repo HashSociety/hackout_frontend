@@ -1,14 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
+
 import { api } from "../api";
 import { useAtom } from "jotai";
-import { storageAtom } from "@/store";
+import { storageAtom } from "../store";
 import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "../components/ui/use-toast";
 import { useHistory } from "react-router";
 
 const Login = () => {
   const { toast } = useToast();
-  const loginMutation = useMutation(api.user.login);
+
   const [storage, setStorage] = useAtom(storageAtom);
   const history = useHistory();
   const [input, setInput] = useState({
@@ -20,26 +20,27 @@ const Login = () => {
     localStorage.removeItem("token");
     setStorage((p) => ({ ...p, token: token }));
   };
-  const loginSubmit = async () => {
-    if (input.password && input.username) {
-      loginMutation.mutate(
-        {
-          username: input.username,
-          password: input.password,
-        },
-        {
-          onSuccess: (data) => {
-            setTokenToStorage(data.access_token);
-            toast({
-              title: "Loggedin Successfully",
-              description: "Welcome!",
-            });
-            history.push("/home");
-          },
-        }
-      );
+
+  const handleLogin = async () => {
+    if (storage?.token) {
+      history.push("/home");
+    }
+
+    const data = await api.user.login({
+      username: input.username,
+      password: input.password,
+    });
+
+    if (data) {
+      setTokenToStorage(data.access_token);
+      toast({
+        title: "Loggedin Successfully",
+        description: "Welcome!",
+      });
+      history.push("/home");
     }
   };
+
   return (
     <div className="w-full text-white h-full flex justify-center items-center">
       <div className="flex flex-col gap-3">
@@ -82,7 +83,7 @@ const Login = () => {
             <button
               type="button"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              onClick={loginSubmit}
+              onClick={handleLogin}
             >
               Sign In
             </button>

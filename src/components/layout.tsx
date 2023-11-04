@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Header from "./ui/header";
 import { useAtom } from "jotai";
-import { storageAtom } from "@/store";
-import { Toaster } from "@/components/ui/toaster";
+import { storageAtom } from "../store";
+import { Toaster } from "./ui/toaster";
 
 function Layout(props: { children: React.ReactNode }) {
   const { children } = props;

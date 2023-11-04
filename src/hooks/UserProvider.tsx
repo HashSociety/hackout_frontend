@@ -1,4 +1,4 @@
-import { User } from "@/types/user";
+import { User } from "../types/user";
 import { createContext, useContext, useState } from "react";
 
 export const UserContext = createContext<{

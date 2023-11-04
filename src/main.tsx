@@ -42,8 +42,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
-/* Ionic Theme variables */
-// import "./variables.css";
+
 
 setupIonicReact();
 

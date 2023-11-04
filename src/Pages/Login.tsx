@@ -19,7 +19,7 @@ const Login = () => {
   });
 
   const setTokenToStorage = (token: string) => {
-    setStorage((p: Storage) => ({ ...p, token: token }));
+    setStorage((p: any) => ({ ...p, token: token }));
   };
 
   const handleLogin = async () => {
@@ -41,7 +41,7 @@ const Login = () => {
       history.push("/dashboard");
       const user = await api.user.getUser({ token: data.access_token });
       if (user) {
-        setStorage((p: Storage) => ({
+        setStorage((p: any) => ({
           ...p,
           name: user.Name,
           email: user.EmailId,

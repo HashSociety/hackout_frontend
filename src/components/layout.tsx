@@ -7,15 +7,12 @@ import { api } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 import { Storage } from "@/types/storage";
 
+
 function Layout(props: { children: React.ReactNode }) {
   const { children } = props;
   const [storage, setStorage] = useAtom(storageAtom);
-  // const userQuery = useQuery({
-  //   queryKey: ["user"],
-  //   queryFn: api.user.getUser,
-  //   enabled: !!storage?.token,
-  //   refetchInterval: 10000,
-  // });
+
+
 
   const getStorage = async () => {
     //@ts-ignore

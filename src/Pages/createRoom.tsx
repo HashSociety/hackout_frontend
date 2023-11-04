@@ -5,6 +5,8 @@ import { storageAtom } from "@/store";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { Geolocation } from "@capacitor/geolocation";
+import { Button } from "@/components/ui/button";
 
 function CreateRoom() {
   const [storage, setStorage] = useAtom(storageAtom);
@@ -16,6 +18,10 @@ function CreateRoom() {
     Longitude: "",
     DistanceAllowed: "",
   });
+
+  const printCurrentPosition = async () => {
+    const coordinates = await Geolocation.getCurrentPosition();
+  };
 
   const presets = [
     {
@@ -116,15 +122,28 @@ function CreateRoom() {
       ),
     },
   ];
-
+  console.log(input);
   useEffect(() => {
     if (!storage.name) {
       history.push("/login");
     }
+
+    const getLocation = async () => {
+      const coordinates = await Geolocation.getCurrentPosition();
+      setInput((p) => ({
+        ...p,
+        Latitude: coordinates.coords.latitude.toString(),
+        Longitude: coordinates.coords.longitude.toString(),
+      }));
+    };
+    getLocation();
   }, []);
   return (
     <div className="mt-20 w-full h-full ">
       <div className="text-3xl font-bold px-4">Create a room</div>
+      {/* <Button variant={"secondary"} onClick={() => printCurrentPosition()}>
+        Get ny location
+      </Button> */}
       <br />
       <div className="  p-4 ">
         {/* <Label className="text-lg"> Owner Name </Label>

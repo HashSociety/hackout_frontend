@@ -1,3 +1,5 @@
+const port = "http://192.168.29.208:8000";
+
 export const api = {
   user: {
     login: async (props: { username: string; password: string }) => {
@@ -9,7 +11,7 @@ export const api = {
         )}&password=${encodeURIComponent(password)}`;
 
         const response = await fetch(
-          import.meta.env.VITE_BACKEND_URL + "/login",
+          port + "/login",
           {
             method: "POST",
             headers: {
@@ -51,7 +53,7 @@ export const api = {
         });
 
         const response = await fetch(
-          import.meta.env.VITE_BACKEND_URL + "/signup",
+          port + "/signup",
           {
             method: "POST",
             headers: {
@@ -77,7 +79,7 @@ export const api = {
 
       if (token) {
         const res = await fetch(
-          import.meta.env.VITE_BACKEND_URL + "/get_user_info",
+          port + "/get_user_info",
           {
             method: "GET",
             headers: {

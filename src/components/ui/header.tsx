@@ -13,7 +13,7 @@ function Header() {
         <div className="flex md:order-2  items-center">
           <Link to={"/login"}>
             <Button type="button" className=" text-xs p-0 px-2 ">
-              Get started
+              Login
             </Button>
           </Link>
           <button

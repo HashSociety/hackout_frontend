@@ -5,6 +5,7 @@ import { storageAtom } from "../store";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const { toast } = useToast();
@@ -42,7 +43,10 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full text-white h-full flex justify-center items-center">
+    <div className="w-full text-white h-full flex flex-col justify-center items-center">
+    <div className="text-black text-3xl ">
+      Login
+    </div>
       <div className="flex flex-col gap-3">
         <div className="flex items-center"></div>
 
@@ -57,7 +61,7 @@ const Login = () => {
                 setInput((p) => ({ ...p, username: e.target.value }))
               }
               name="username"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className=" border-b-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="username"
               type="text"
               placeholder="Username"
@@ -73,13 +77,13 @@ const Login = () => {
               onChange={(e) =>
                 setInput((p) => ({ ...p, password: e.target.value }))
               }
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              className=" border-b-2 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
               type="password"
               placeholder="*****"
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-2 items-center justify-between">
             <button
               type="button"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -87,6 +91,10 @@ const Login = () => {
             >
               Sign In
             </button>
+
+            <div className="text-black">
+              Don't have a account? <Link to="/signup">Sign Up</Link>
+            </div>
           </div>
         </div>
       </div>

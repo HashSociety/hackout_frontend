@@ -3,6 +3,7 @@ import { useToast } from "../components/ui/use-toast";
 
 import { useState } from "react";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 function Signup() {
 
@@ -40,7 +41,8 @@ function Signup() {
   };
 
   return (
-    <div className="w-full text-white h-full flex justify-center items-center">
+    <div className="w-full text-white flex-col h-full flex justify-center items-center px-4">
+      <div className="text-2xl text-black mt-10">Sign Up</div>
       <div className="flex flex-col gap-3">
         <div className="flex items-center"></div>
 
@@ -55,13 +57,14 @@ function Signup() {
               onChange={(e) =>
                 setInput((p) => ({ ...p, email: e.target.value }))
               }
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className=" border-b-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="text"
               placeholder="Email"
             />
           </div>
-          <div className="mb-4">
+         <div className="flex gap-2">
+         <div className="mb-4">
             <label htmlFor="name" className="block text-sm font-bold mb-2">
               Name
             </label>
@@ -71,7 +74,7 @@ function Signup() {
               onChange={(e) =>
                 setInput((p) => ({ ...p, name: e.target.value }))
               }
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="border-b-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="name"
               type="text"
               placeholder="Name"
@@ -87,12 +90,13 @@ function Signup() {
               onChange={(e) =>
                 setInput((p) => ({ ...p, last_name: e.target.value }))
               }
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="border-b-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="last_name"
               type="text"
               placeholder="Last Name"
             />
           </div>
+         </div>
           <div className="mb-4">
             <label htmlFor="gender" className="block text-sm font-bold mb-2">
               Gender
@@ -103,7 +107,7 @@ function Signup() {
               onChange={(e) =>
                 setInput((p) => ({ ...p, gender: e.target.value }))
               }
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="border-b-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="gender"
               type="text"
               placeholder="Gender"
@@ -117,7 +121,7 @@ function Signup() {
               name="age"
               value={input.age}
               onChange={(e) => setInput((p) => ({ ...p, age: e.target.value }))}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="border-b-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="age"
               type="text"
               placeholder="Age"
@@ -133,13 +137,13 @@ function Signup() {
               onChange={(e) =>
                 setInput((p) => ({ ...p, password: e.target.value }))
               }
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="border-b-2 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
               type="password"
               placeholder="*****"
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-3 items-center justify-between">
             <button
               type="button"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -147,6 +151,10 @@ function Signup() {
             >
               Sign Up
             </button>
+
+            <div className="text-black">
+              Already have a account <Link to="/login">Login</Link>
+            </div>
           </div>
         </div>
       </div>

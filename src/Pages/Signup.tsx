@@ -4,6 +4,7 @@ import { useToast } from "../components/ui/use-toast";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 function Signup() {
 
@@ -35,6 +36,9 @@ function Signup() {
       toast({
         title: "Signed up Successfully",
         description: "",
+        className: cn(
+          "bottom-5 right-0 flex fixed  md:top-4 md:right-4  text-red-600 bg-muted border-red-600 mx-3 w-[calc(100%-20px)]  "
+        ),
       });
       history.push("/login");
     }

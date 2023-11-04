@@ -74,12 +74,12 @@ function Header() {
       <SheetContent side={"bottom"}>
         <div className="flex h-full w-full text-secondary font-semibold justify-center items-center  flex-col gap-5">
           <SheetClose asChild>
-            <Link to={"room"} className="text-primary">
+            <Link to={"/room"} className="text-primary">
               Joined Rooms
             </Link>
           </SheetClose>
           <SheetClose asChild>
-            <Link to={"dashboard"} className="text-primary">
+            <Link to={"/dashboard"} className="text-primary">
               Dashboard
             </Link>
           </SheetClose>

@@ -148,7 +148,9 @@ function CreateRoom() {
         toast({
           title: "Room Initiated",
           // description: "Welcome!",
-          className: cn("bottom-0 right-0 flex fixed  md:top-4 md:right-4 "),
+          className: cn(
+            "bottom-5 right-0 flex fixed  md:top-4 md:right-4  text-blue-600 bg-muted border-blue-600 mx-3 w-[calc(100%-20px)]  "
+          ),
         });
         setRoomId(data.RoomID);
       }
@@ -157,7 +159,7 @@ function CreateRoom() {
         title: "Error",
         description: "All feilds are required",
         className: cn(
-          "bottom-0 right-0 flex fixed  md:top-4 md:right-4  text-red-600"
+          "bottom-5 right-0 flex fixed  md:top-4 md:right-4  text-red-600 bg-muted border-red-600 mx-3 w-[calc(100%-20px)]  "
         ),
       });
     }
@@ -180,7 +182,7 @@ function CreateRoom() {
           title: "Error",
           description: "Failed to get location",
           className: cn(
-            "bottom-0 right-0 flex fixed  md:top-4 md:right-4  text-red-600"
+            "bottom-5 right-0 flex fixed  md:top-4 md:right-4  text-red-600 bg-muted border-red-600 mx-3 w-[calc(100%-20px)]  "
           ),
         });
       }
@@ -195,7 +197,9 @@ function CreateRoom() {
       toast({
         title: "Purpose Added Successfully",
         // description: "Welcome!",
-        className: cn("top-0 right-0 flex fixed  md:top-4 md:right-4 "),
+        className: cn(
+          "bottom-5 right-0 flex fixed  md:top-4 md:right-4  text-blue-600 bg-muted border-blue-600 mx-3 w-[calc(100%-20px)]  "
+        ),
       });
       setPurpose({
         heading: "",
@@ -330,13 +334,13 @@ function CreateRoom() {
                   })
                 }
               >
-                <div className="bg-black text-white px-4 py-2 rounded-xl w-full te">Add</div>
+                <div className="bg-black text-white px-4 py-2 rounded-xl w-full ">Add</div>
               </CardFooter>
             </Card>
           </div>
         </>
       )}
-      <div className="flex p-2">
+      <div className="flex p-2 ">
         <Button className=" w-full">Done </Button>
       </div>
     </div>

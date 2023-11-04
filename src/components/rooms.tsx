@@ -4,12 +4,15 @@ import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import React from "react";
 import { Button } from "./ui/button";
+import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
-function Room() {
+function Rooms() {
   const [storage, setStorage] = useAtom(storageAtom);
+  const history = useHistory();
   const roomsQuery = useQuery({
     queryKey: ["rooms"],
-    queryFn: () => api.room.joinedRoom({ token: storage.token }),
+    queryFn: () => api.room.joinedRoom({ token: storage?.token || "" }),
   });
 
   const allRooms = roomsQuery.data;
@@ -24,14 +27,16 @@ function Room() {
         <div className="grid grid-cols-1 gap-4 pt-4  h-full overflow-auto">
           {allRooms &&
             allRooms.map((room: any, index: number) => (
-              <Button
-                className="flex  justify-between p-5 border-2  rounded-lg "
-                key={index}
-                variant={"secondary"}
-              >
-                <div className="font-bold">{room.OwnerName}</div>
-                <div className="text-sm">{room.RoomPurpose}</div>
-              </Button>
+              <Link to={`/room/${room.RoomID}`} className="w-full" key={index}>
+                <Button
+                  className="flex  justify-between p-5 border-2  rounded-lg w-full "
+                  key={index}
+                  variant={"secondary"}
+                >
+                  <div className="font-bold">{room.OwnerName}</div>
+                  <div className="text-sm">{room.RoomPurpose}</div>
+                </Button>
+              </Link>
             ))}
         </div>
       </div>
@@ -39,4 +44,4 @@ function Room() {
   );
 }
 
-export default Room;
+export default Rooms;

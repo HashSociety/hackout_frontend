@@ -32,15 +32,14 @@ const Login = () => {
       password: input.password,
     });
 
-    if (data) {
+    if (data.access_token) {
       setTokenToStorage(data.access_token);
       toast({
         title: "Loggedin Successfully",
         description: "Welcome!",
       });
       history.push("/dashboard");
-      console.log("starter");
-      const user = await api.user.getUser();
+      const user = await api.user.getUser({ token: data.access_token });
       if (user) {
         setStorage((p: Storage) => ({
           ...p,

@@ -68,11 +68,12 @@ export const api = {
         throw new Error("Error occurred during registration request.");
       }
     },
-    getUser: async () => {
-      const storage: Storage = await JSON.parse(
-        localStorage.getItem("h-store") || "{}"
-      );
-      const token = storage.token;
+    getUser: async (props: { token: string }) => {
+      // const storage: Storage = await JSON.parse(
+      //   localStorage.getItem("h-store") || "{}"
+      // );
+      // const token = storage.token;
+      const token = props.token;
 
       if (token) {
         const res = await fetch(

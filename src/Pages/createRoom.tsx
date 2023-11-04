@@ -122,7 +122,7 @@ function CreateRoom() {
       ),
     },
   ];
-  console.log(input);
+
   useEffect(() => {
     if (!storage.name) {
       history.push("/login");

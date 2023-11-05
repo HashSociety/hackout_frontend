@@ -88,24 +88,7 @@ function Home() {
           <div className="flex flex-col justify-center items-center mt-10">
             <div className="text-2xl">Join Rooms</div>
 
-            {/* <div className="grid grid-cols-2 gap-4 mt-10 ">
-              <div className=" flex flex-col justify-between p-3 h-[20vh] w-[40vw] border-2  rounded-lg">
-                <div>01</div>
-                <div>Travel</div>
-              </div>
-              <div className=" flex flex-col justify-between p-3 h-[20vh] w-[40vw] border-2  rounded-lg">
-                <div>02</div>
-                <div>Sports</div>
-              </div>
-              <div className=" flex flex-col justify-between p-3 h-[20vh] w-[40vw] border-2  rounded-lg">
-                <div>03</div>
-                <div>Movies</div>
-              </div>
-              <div className=" flex flex-col justify-between p-3 h-[20vh] w-[40vw] border-2  rounded-lg">
-                <div>04</div>
-                <div>Cab</div>
-              </div>
-            </div> */}
+            
             <div className="flex gap-4 mt-10 overflow-x-scroll w-screen h-screen px-5">
               {roomData.length > 0 ? (
                 roomData.map((room: any, index) => (

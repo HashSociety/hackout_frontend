@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Info from "./Info";
 import { useEffect, useState } from "react";
 import { Geolocation } from "@capacitor/geolocation";
+import { Button } from "@/components/ui/button";
 function Home() {
   const [storage, setStorage] = useAtom(storageAtom);
   const [input, setInput] = useState({
@@ -86,7 +87,7 @@ function Home() {
           </Link>
 
           <div className="flex flex-col justify-center items-center mt-10">
-            <div className="text-2xl">Join Rooms</div>
+            <div className="text-2xl font-bold">Join Hubs</div>
 
             {/* <div className="grid grid-cols-2 gap-4 mt-10 ">
               <div className=" flex flex-col justify-between p-3 h-[20vh] w-[40vw] border-2  rounded-lg">
@@ -106,38 +107,49 @@ function Home() {
                 <div>Cab</div>
               </div>
             </div> */}
-            <div className="flex gap-4 mt-10 overflow-x-scroll w-screen h-screen px-5">
+            <div className="flex gap-4 mt-10 overflow-x-scroll example w-screen h-fit px-5">
               {roomData.length > 0 ? (
                 roomData.map((room: any, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-center flex-col p-3 max-h-[40vh] min-w-[70vw] border-4 border-black rounded-lg"
-                  >
-                    <div>
-                      Room Name:{" "}
-                      <span className="font-bold capitalize">
-                        {room.OwnerName}
-                      </span>
+                  <Link to={`/room/${room.RoomID}`}>
+                    <div
+                      key={index}
+                      className="flex justify-between flex-col p-3 h-[30vh] min-w-[70vw] border-4 border-black  rounded-lg"
+                    >
+                      <div className="flex gap-4">
+                        <div>
+                          Room Name:{" "}
+                          <span className="font-bold capitalize">
+                            {room.OwnerName}
+                          </span>
+                        </div>
+                        <div>
+                          
+                          <Button className="font-bold capitalize border px-4 py-2">
+                            {room.RoomPurpose}
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="flex gap-4">
+                      <div>
+                        Distance Allowed:{" "}
+                        <span className="font-bold capitalize">
+                          {room.DistanceAllowed}
+                        </span>
+                      </div>
+                      <div>
+                        Distance From User:{" "}
+                        <span className="font-bold capitalize">
+                        {Number(room.DistanceFromUser).toFixed(4)}
+                        </span>
+                      </div>
+                      </div>
+                      <div className="flex justify-center items-center">
+                        <Button >
+                          Join 
+                        </Button>
+                      </div>
                     </div>
-                    <div>
-                      Room Purpose:{" "}
-                      <span className="font-bold capitalize">
-                        {room.RoomPurpose}
-                      </span>
-                    </div>
-                    <div>
-                      Distance Allowed:{" "}
-                      <span className="font-bold capitalize">
-                        {room.DistanceAllowed}
-                      </span>
-                    </div>
-                    <div>
-                      Distance From User:{" "}
-                      <span className="font-bold capitalize">
-                        {room.DistanceFromUser}
-                      </span>
-                    </div>
-                  </div>
+                  </Link>
                 ))
               ) : (
                 <div className="flex w-full  justify-center">

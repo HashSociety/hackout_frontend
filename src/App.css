@@ -13,3 +13,7 @@
 .bg-image{
   background: url(./assets/blue-wall-background.jpg);
 }
+
+.example::-webkit-scrollbar {
+  display: none;
+}

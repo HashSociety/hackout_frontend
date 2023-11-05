@@ -93,7 +93,7 @@ function ChatRoom() {
             <div className="text-left font-bold text-xl">
               Purpose of this room
             </div>
-            {roomData.PurposeDescriptions.map((item: any, index: number) => (
+            { roomData?.PurposeDescriptions.length > 0 &&  roomData?.PurposeDescriptions?.map((item: any, index: number) => (
               <div className="pt-5 flex text-lg gap-2">
                 <div>{index + 1}.</div>
                 <div

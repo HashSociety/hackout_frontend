@@ -8,8 +8,8 @@ import { Geolocation } from "@capacitor/geolocation";
 function Home() {
   const [storage, setStorage] = useAtom(storageAtom);
   const [input, setInput] = useState({
-    Latitude: "",
-    Longitude: "",
+    Latitude: 0,
+    Longitude: 0,
     token: storage?.token,
   });
 
@@ -21,24 +21,22 @@ function Home() {
         const coordinates = await Geolocation.getCurrentPosition();
         setInput((p) => ({
           ...p,
-          Latitude: coordinates.coords.latitude.toString(),
-          Longitude: coordinates.coords.longitude.toString(),
+          Latitude: coordinates.coords.latitude,
+          Longitude: coordinates.coords.longitude,
         }));
       } catch (error) {
         console.log("error");
       }
     };
 
-    if (input.Latitude === "" || input.Longitude === "") getLocation();
+    if (input.Latitude === 0 || input.Longitude === 0) getLocation();
 
     // Call the API to fetch room data
     // listSearch();
   }, []);
 
-  console.log(input);
-
   useEffect(() => {
-    if (input.Latitude === "") {
+    if (input.Latitude === 0) {
       return;
     }
     const listSearch = async () => {
@@ -49,10 +47,10 @@ function Home() {
         const data = await api.room.search({
           user_latitude: input.Latitude,
           user_longitude: input.Longitude,
-          token: storage?.token,
+          token: storage?.token || "",
         });
         if (Array.isArray(data)) {
-          setRoomData(data);
+          setRoomData(data as any);
         }
       } catch (e) {
         console.log("error in 40");
@@ -110,7 +108,7 @@ function Home() {
             </div> */}
             <div className="flex gap-4 mt-10 overflow-x-scroll w-screen h-screen px-5">
               {roomData.length > 0 ? (
-                roomData.map((room, index) => (
+                roomData.map((room: any, index) => (
                   <div
                     key={index}
                     className="flex justify-center flex-col p-3 max-h-[40vh] min-w-[70vw] border-4 border-black rounded-lg"

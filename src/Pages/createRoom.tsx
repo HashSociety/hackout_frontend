@@ -52,6 +52,18 @@ const presets = [
     className: "border-orange-500 bg-orange-500/70 border-[6px]",
     img: <RiChat3Fill />,
   },
+  {
+    name: "Custom",
+    color: "#ea580c",
+    className: "border-orange-500 bg-orange-500/70 border-[6px]",
+    img: <RiChat3Fill />,
+  },
+  {
+    name: "Land mark ",
+    color: "#ea580c",
+    className: "border-orange-500 bg-orange-500/70 border-[6px]  ",
+    img: <RiChat3Fill />,
+  },
 ];
 
 function CreateRoom() {

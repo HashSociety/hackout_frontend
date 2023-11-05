@@ -326,5 +326,35 @@ export const api = {
         throw new Error("Error occurred during registration request.");
       }
     },
+    getChats:async (props: { room_id: string; token: string }) => {
+      const { room_id, token } = props;
+    
+      try {
+        if (!room_id) {
+          throw new Error("Room ID is required.");
+        }
+    
+        const response = await fetch(`${port}/get_chats/${room_id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "ngrok-skip-browser-warning": "true",
+          },
+        });
+    
+        if (response.status === 200) {
+          const data = await response.json();
+          return data;
+        } else if (response.status === 422) {
+          const errorData = await response.json();
+          throw new Error("Validation Error: " + JSON.stringify(errorData));
+        } else {
+          throw new Error("Error occurred during the request.");
+        }
+      } catch (e) {
+        console.log(e);
+        throw new Error("Error occurred during the request.");
+      }
+    }
   },
 };

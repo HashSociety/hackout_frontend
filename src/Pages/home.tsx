@@ -20,6 +20,7 @@ function Home() {
     const getLocation = async () => {
       try {
         const coordinates = await Geolocation.getCurrentPosition();
+       
         setInput((p) => ({
           ...p,
           Latitude: coordinates.coords.latitude,
@@ -50,6 +51,7 @@ function Home() {
           user_longitude: input.Longitude,
           token: storage?.token || "",
         });
+
         if (Array.isArray(data)) {
           setRoomData(data as any);
         }
@@ -57,7 +59,9 @@ function Home() {
         console.log("error in 40");
       }
     };
-    listSearch();
+    if (storage?.name) {
+      listSearch();
+    }
   }, [input.Latitude]);
 
   return (
@@ -89,7 +93,6 @@ function Home() {
           <div className="flex flex-col justify-center items-center mt-10">
             <div className="text-2xl font-bold">Join Hubs</div>
 
-            
             <div className="flex gap-4 mt-10 overflow-x-scroll w-screen h-screen px-5">
               {roomData.length > 0 ? (
                 roomData.map((room: any, index) => (
@@ -106,30 +109,27 @@ function Home() {
                           </span>
                         </div>
                         <div>
-                          
                           <Button className="font-bold capitalize border px-4 py-2">
                             {room.RoomPurpose}
                           </Button>
                         </div>
                       </div>
                       <div className="flex gap-4">
-                      <div>
-                        Distance Allowed:{" "}
-                        <span className="font-bold capitalize">
-                          {room.DistanceAllowed}
-                        </span>
-                      </div>
-                      <div>
-                        Distance From User:{" "}
-                        <span className="font-bold capitalize">
-                        {Number(room.DistanceFromUser).toFixed(4)}
-                        </span>
-                      </div>
+                        <div>
+                          Distance Allowed:{" "}
+                          <span className="font-bold capitalize">
+                            {room.DistanceAllowed}
+                          </span>
+                        </div>
+                        <div>
+                          Distance From User:{" "}
+                          <span className="font-bold capitalize">
+                            {Number(room.DistanceFromUser).toFixed(4)}
+                          </span>
+                        </div>
                       </div>
                       <div className="flex justify-center items-center">
-                        <Button >
-                          Join 
-                        </Button>
+                        <Button>Join</Button>
                       </div>
                     </div>
                   </Link>

@@ -2,7 +2,7 @@ import { api } from "@/api";
 import { storageAtom } from "@/store";
 import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "./ui/button";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
@@ -17,6 +17,12 @@ function Rooms() {
   });
 
   const allRooms = roomsQuery.data;
+
+  useEffect(() => {
+    if(!storage?.name){
+      history.push("/login")
+    }
+  },[])
 
   return (
     <div className="mt-16 h-screen ">

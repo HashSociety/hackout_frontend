@@ -306,26 +306,36 @@ export const api = {
       token: string;
     }) => {
       const { user_latitude, user_longitude, token } = props;
-
+    
       try {
         const response = await fetch(
-          port +
-            `/search_nearby_rooms?user_latitude=${user_latitude}&user_longitude=${user_longitude}`,
+          `${port}/search_nearby_rooms?user_latitude=${user_latitude}&user_longitude=${user_longitude}`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
+              "ngrok-skip-browser-warning": "true",
             },
           }
         );
-        const data = await response.json();
-        return data;
+    
+        if (response.status === 200) {
+          const data = await response.json();
+          return data;
+        } else if (response.status === 422) {
+          const errorData = await response.json();
+          throw new Error("Validation Error: " + JSON.stringify(errorData));
+        } else {
+          throw new Error("Error occurred during the request.");
+        }
       } catch (e) {
         console.log(e);
-        throw new Error("Error occurred during registration request.");
+        throw new Error("Error occurred during the request.");
       }
     },
+    
+    
     getChats: async (props: { room_id: string; token: string }) => {
       const { room_id, token } = props;
 

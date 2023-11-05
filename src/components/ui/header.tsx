@@ -22,7 +22,7 @@ function Header() {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
         <Link to="/dashboard" className="flex items-center">
           <span className="self-center text-lg font-semibold whitespace-nowrap text-primary flex justify-center items-center gap-2 ">
-            HeadTogether.
+            <LuMountainSnow /> HeadTogether.
           </span>
         </Link>
         <div className="flex md:order-2  items-center">

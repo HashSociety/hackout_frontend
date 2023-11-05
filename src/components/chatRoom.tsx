@@ -1,6 +1,6 @@
 import { api } from "@/api";
 import { storageAtom } from "@/store";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
@@ -23,7 +23,7 @@ function ChatRoom() {
   const history = useHistory();
   const [storage, setStorage] = useAtom(storageAtom);
   const path = history.location.pathname.split("/")[2];
-
+  const [input, setInput] = useState("");
   const roomQuery = useQuery({
     queryKey: ["room", path],
     queryFn: () =>
@@ -33,6 +33,20 @@ function ChatRoom() {
     queryKey: ["chat", path],
     queryFn: () =>
       api.room.getChats({ room_id: path, token: storage?.token || "" }),
+  });
+
+  const chatMutation = useMutation({
+    mutationKey: ["chat", path],
+    mutationFn: () =>
+      api.room.postChat({
+        RoomID: path,
+        token: storage?.token || "",
+        Chat: input,
+      }),
+    onSuccess: (data) => {
+      setInput("");
+      chatQuery.refetch();
+    },
   });
 
   const [isDelayOver, setDelayOver] = useState(false);
@@ -81,12 +95,12 @@ function ChatRoom() {
                   under {roomData.DistanceAllowed} KM's
                 </div>
               </div>
-              <div className="flex items-center gap-2 ">
-                <div className="text-xs whitespace-nowrap ">All members</div>
+              {membersData && (
+                <div className="flex items-center gap-2 ">
+                  <div className="text-xs whitespace-nowrap ">All members</div>
 
-                <div className="w-full  my-5 overflow-auto flex gap-2">
-                  {membersData &&
-                    membersData.map((member: any, index: number) => (
+                  <div className="w-full  my-5 overflow-auto flex gap-2">
+                    {membersData.map((member: any, index: number) => (
                       <Badge
                         variant="default"
                         className="text-xs font-normal px-4 py-1 leading-1 rounded-full h-6 "
@@ -94,20 +108,20 @@ function ChatRoom() {
                         {member.Name}
                       </Badge>
                     ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* div for listing all the messages */}
-              <div className="flex-1 flex">
+              <div className="flex-1 flex flex-col gap-2  mt-5">
                 {allChats &&
                   allChats.map((chat: any, index: number) => (
-                    <div className="w-full flex flex-col">
+                    <div className="w-full flex flex-col" key={index}>
                       <div
-                        key={index}
-                        className={`bg-secondary p-2 max-w-[300px] rounded-xl  ${
-                          chat.Username === storage.name
-                            ? "self-end text-right"
-                            : ""
+                        className={` p-2 max-w-[300px] rounded-xl  ${
+                          chat.Username === storage?.name
+                            ? "self-end text-right bg-blue-500 text-white"
+                            : "bg-secondary"
                         }`}
                       >
                         <div className="font-bold">{chat.Username}</div>
@@ -118,8 +132,12 @@ function ChatRoom() {
               </div>
 
               <div className="flex gap-2 mb-6">
-                <Input placeholder="type your message here ..." />
-                <Button className=""> Send</Button>
+                <Input
+                  placeholder="type your message here ..."
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                />
+                <Button className="" onClick={() => chatMutation.mutate()}>Send</Button>
               </div>
             </div>
           </div>

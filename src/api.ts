@@ -1,4 +1,5 @@
-const port = "http://127.0.0.1:8000";
+const port =
+  "https://5471-2405-201-3005-e835-24da-8025-9bfd-b78f.ngrok-free.app";
 
 export const api = {
   user: {
@@ -307,7 +308,6 @@ export const api = {
       const { user_latitude, user_longitude, token } = props;
 
       try {
-      
         const response = await fetch(
           port +
             `/search_nearby_rooms?user_latitude=${user_latitude}&user_longitude=${user_longitude}`,
@@ -326,14 +326,14 @@ export const api = {
         throw new Error("Error occurred during registration request.");
       }
     },
-    getChats:async (props: { room_id: string; token: string }) => {
+    getChats: async (props: { room_id: string; token: string }) => {
       const { room_id, token } = props;
-    
+
       try {
         if (!room_id) {
           throw new Error("Room ID is required.");
         }
-    
+
         const response = await fetch(`${port}/get_chats/${room_id}`, {
           method: "GET",
           headers: {
@@ -341,7 +341,7 @@ export const api = {
             "ngrok-skip-browser-warning": "true",
           },
         });
-    
+
         if (response.status === 200) {
           const data = await response.json();
           return data;
@@ -355,6 +355,47 @@ export const api = {
         console.log(e);
         throw new Error("Error occurred during the request.");
       }
-    }
+    },
+    postChat: async (props: {
+      RoomID: string;
+      Chat: string;
+      token: string;
+    }) => {
+      const { RoomID, Chat, token } = props;
+
+      try {
+        if (!RoomID || !Chat) {
+          throw new Error("RoomID and Chat are required.");
+        }
+
+        const requestBody = JSON.stringify({
+          RoomID: RoomID,
+          Chat: Chat,
+        });
+
+        const response = await fetch(`${port}/post_chat`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            "ngrok-skip-browser-warning": "true",
+          },
+          body: requestBody,
+        });
+
+        if (response.status === 200) {
+          const data = await response.json();
+          return data;
+        } else if (response.status === 422) {
+          const errorData = await response.json();
+          throw new Error("Validation Error: " + JSON.stringify(errorData));
+        } else {
+          throw new Error("Error occurred during the request.");
+        }
+      } catch (e) {
+        console.log(e);
+        throw new Error("Error occurred during the request.");
+      }
+    },
   },
 };

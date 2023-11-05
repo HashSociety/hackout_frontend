@@ -7,7 +7,7 @@ const config: CapacitorConfig = {
   server: {
     androidScheme: "http",
     cleartext: true,
-    allowNavigation: ["http://127.0.0.1:8000*"],
+    allowNavigation: ["https://5471-2405-201-3005-e835-24da-8025-9bfd-b78f.ngrok-free.app*"],
   },
 };
 

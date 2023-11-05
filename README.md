@@ -67,3 +67,12 @@ This command starts the application on `http://localhost:8000`. You can access t
 - ReactJs: A modern, fast framework for building webapps.
 - Capacitor: A plugin to convert react webapps to android/ios apps.
 - Android SDK tools: To build android apps.
+
+## Screenshots
+| Landing Page                        | Creating Room                       | Join Room                                   |
+| ----------------------------------- | ----------------------------------- | ------------------------------------------- |
+| ![5](https://github.com/HashSociety/hackout_backend/blob/master/images/5.png?raw=true)                  | ![2](https://github.com/HashSociety/hackout_backend/blob/master/images/2.png?raw=true)                  | ![3](https://github.com/HashSociety/hackout_backend/blob/master/images/3.png?raw=true)                    |
+
+| Room and its Details                | Overview                            |
+| ----------------------------------- | ----------------------------------- | 
+| ![4](https://github.com/HashSociety/hackout_backend/blob/master/images/4.png?raw=true)                  | ![1](https://github.com/HashSociety/hackout_backend/blob/master/images/1.png?raw=true)                  | 
